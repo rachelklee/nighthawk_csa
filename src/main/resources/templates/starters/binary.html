@@ -109,11 +109,17 @@
 <!-- </head> -->
 
 <!-- <body> -->
-<div layout:fragment="content" th:with="bits=8" th:remove="tag">
+<div layout:fragment="content" th:with="bits=16" th:remove="tag">
     <h1 class="text-center">Binary Math with Conversions</h1>
+    <script type="text/javascript" src="script.js"></script>
     <div class="container">
       <div class="row justify-content-md-center">
-
+        <button onClick=th:with="bits=8">8 bits</button>
+        <button onClick=th:with="bits=16">16 bits</button>
+        <button onClick=th:with="bits=24">24 bits</button>
+        <div id="result"></div>
+        <br>
+        <br>
         <div class="col-8">
           <table class="table">
             <tr id="table">
