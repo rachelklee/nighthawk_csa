@@ -11,7 +11,7 @@
 <!-- Hack 6: fix all warnings -->
 
 <!-- <head> -->
-<div layout:fragment="metadata" th:with="bits=8" th:remove="tag">
+<div layout:fragment="metadata" th:with="bits" th:remove="tag">
   <title>Binary page</title>
   <script>
     const BITS = [[${bits}]];
@@ -28,6 +28,10 @@
         bits = bits + document.getElementById('digit' + i).value;
       }
       return bits;
+    }
+    // change number of bits
+    function changeBits(n) {
+
     }
     // setter for DOM values
     function setConversions(binary) {
@@ -114,7 +118,7 @@
     <script type="text/javascript" src="script.js"></script>
     <div class="container">
       <div class="row justify-content-md-center">
-        <button onClick=th:with="bits=8">8 bits</button>
+        <button type="button" id="change" onClick="changeBits(8)">8 bits</button>
         <button onClick=th:with="bits=16">16 bits</button>
         <button onClick=th:with="bits=24">24 bits</button>
         <div id="result"></div>
