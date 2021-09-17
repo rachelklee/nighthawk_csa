@@ -33,13 +33,6 @@ public class MainController {
         return "starters/image";
     }
 
-    /*
-    @GetMapping("/binary")    // CONTROLLER handles GET request for /greeting, maps it to greeting() and does variable bindings
-    public String binary() {
-        return "starters/binary";
-    }
-
-     */
 
     @GetMapping("/binary")
     public String bits(@RequestParam(name="bits", required=false, defaultValue="8") Integer bits, Model model) {
