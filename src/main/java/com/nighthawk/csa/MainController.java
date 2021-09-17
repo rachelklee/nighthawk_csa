@@ -38,6 +38,14 @@ public class MainController {
         return "starters/binary";
     }
 
+    @GetMapping("/bits")
+    public String bits(@RequestParam(name="bits", required=false, defaultValue="8") Integer bits, Model model) {
+        // @RequestParam handles required and default values, name and model are class variables, model looking like JSON
+        model.addAttribute("bits", bits);   // MODEL is passed to html
+        return "starters/bits";
+    }
+
+
     // GET request, no parameters
     @GetMapping("/covid19")
     public String covid19(Model model) throws IOException, InterruptedException {
@@ -58,6 +66,8 @@ public class MainController {
         model.addAttribute("countries", map.get("countries_stat"));
         return "starters/covid19";
     }
+
+
 
     @GetMapping("/snake")   // GET request
     public String snake() {
@@ -86,4 +96,6 @@ public class MainController {
         return "course/timelines";
     }
 
+
 }
+
