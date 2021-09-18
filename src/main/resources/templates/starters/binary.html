@@ -29,9 +29,6 @@
       }
       return bits;
     }
-    // change number of bits
-    function changeBits(n) {
-    }
 
     // setter for DOM values
     function setConversions(binary) {
@@ -42,15 +39,15 @@
       document.getElementById('hexadecimal').innerHTML = parseInt(binary, 2).toString(16);
       // Decimal conversion
       document.getElementById('decimal').innerHTML = parseInt(binary, 2).toString();
-      // char conversion
-      if (binary > 100000) {
-        document.getElementById('char').innerHTML = String.fromCharCode(parseInt(binary,2));
+      // char conversion hack 3
+      if (binary > 100000 && binary < 1111111) {
+        document.getElementById('char').innerHTML = String.fromCharCode(parseInt(binary, 2));
       }
       else {
         document.getElementById('char').innerHTML = "not printable";
       }
-    }
-    //
+      }
+
     function decimal_2_base(decimal, base) {
       let conversion = "";
       // loop to convert to base
@@ -67,6 +64,7 @@
       }
       return conversion;
     }
+
 
     // toggle selected bit and recalculate
     function toggleBit(i) {
@@ -115,6 +113,8 @@
         }
       }
     }
+
+
   </script>
 </div>
 <!-- </head> -->
@@ -142,6 +142,7 @@
               <th>Hexadecimal</th>
               <th>Decimal</th>
               <th>Char</th>
+              <th>Color</th>
               <th>Minus</th>
             </tr>
             <tr>
@@ -150,7 +151,8 @@
               <td id="octal">0</td>
               <td id="hexadecimal">0</td>
               <td id="decimal">0</td>
-              <td id="char">not printable</td>
+              <td id="char">null</td>
+              <td><div style="background-color: #cfc; padding: 10px; border: 1px solid black;"> </div></td>
               <td><button type="button" id="sub1" onclick="add(-1)">-1</button></td>
             </tr>
           </table>
