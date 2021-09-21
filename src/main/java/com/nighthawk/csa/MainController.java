@@ -1,7 +1,7 @@
 package com.nighthawk.csa;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nighthawk.csa.model.starters.AsciiImage;
+import com.nighthawk.csa.model.starters.ImageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller  // HTTP requests are handled as a controller, using the @Controller annotation
 public class MainController {
@@ -25,22 +27,47 @@ public class MainController {
     }
 
     @GetMapping("/image")
-    public String image(Model model) throws IOException {
-        String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/1200px-Abraham_Lincoln_O-77_matte_collodion_print.jpg";
-        AsciiImage ai = new AsciiImage(url, 16);
-        String[] rows = ai.convert_to_ascii();
-        model.addAttribute("rows", rows);
+    public String image(Model model)  {
+        //String web_server = "http://localhost:8080/";
+        String web_server = "https://csa.nighthawkcodingsociety.com";
+        List<ImageInfo> lii = new ArrayList<>();
+
+        String file0 = "/images/Mona_Lisa.png";
+        lii.add(new ImageInfo(file0, web_server+file0, 12));
+        lii.get(0).read_image();
+
+        String file1 = "/images/bulb_on.gif";
+        lii.add(new ImageInfo(file1, web_server+file1, 2));
+        lii.get(1).read_image();
+
+        String file2 = "/images/bulb_off.png";
+        lii.add(new ImageInfo(file2, web_server+file2, 7));
+        lii.get(2).read_image();
+
+        model.addAttribute("lii", lii);
         return "starters/image";
     }
 
+    @GetMapping("/image/grayscale")
+    public String image_grayscale(Model model) {
+        //String web_server = "http://localhost:8080/";
+        String web_server = "https://csa.nighthawkcodingsociety.com";
+        List<ImageInfo> lii = new ArrayList<>();
 
-    @GetMapping("/binary")
-    public String bits(@RequestParam(name="bits", required=false, defaultValue="8") Integer bits, Model model) {
-        // @RequestParam handles required and default values, name and model are class variables, model looking like JSON
-        model.addAttribute("bits", bits);   // MODEL is passed to html
-        return "starters/binary";
+        String file0 = "/images/Mona_Lisa.png";
+        lii.add(new ImageInfo(file0, web_server+file0, 12));
+        String str = lii.get(0).grayscale();
+//        String str = lii.get(0).grayscale();
+        model.addAttribute("str", str);
+        return "starters/image_grayscale";
     }
 
+
+    @GetMapping("/binary")    // CONTROLLER handles GET request for /greeting, maps it to greeting() and does variable bindings
+    public String binary(@RequestParam(name="bits", required=false, defaultValue="8") Integer bits, Model model) {
+        model.addAttribute("bits", bits);
+        return "starters/binary";
+    }
 
     // GET request, no parameters
     @GetMapping("/covid19")
@@ -55,15 +82,13 @@ public class MainController {
         //rapidapi call
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         //convert to java hash map
-        HashMap map = new ObjectMapper().readValue(response.body(), HashMap.class);
+        var map = new ObjectMapper().readValue(response.body(), HashMap.class);
         //pass country stats to view
         model.addAttribute("data", map);
         model.addAttribute("world", map.get("world_total"));
         model.addAttribute("countries", map.get("countries_stat"));
         return "starters/covid19";
     }
-
-
 
     @GetMapping("/snake")   // GET request
     public String snake() {
@@ -92,6 +117,4 @@ public class MainController {
         return "course/timelines";
     }
 
-
 }
-
