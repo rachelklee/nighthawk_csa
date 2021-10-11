@@ -57,11 +57,11 @@ public class MainController {
         String file0 = "/images/Mona_Lisa.png";
         lii.add(new ImageInfo(file0, web_server+file0, 12));
         String str = lii.get(0).grayscale();
-//        String str = lii.get(0).grayscale();
+        //String str = lii.get(0).grayscale();
+
         model.addAttribute("str", str);
         return "starters/image_grayscale";
     }
-
 
     @GetMapping("/binary")    // CONTROLLER handles GET request for /greeting, maps it to greeting() and does variable bindings
     public String binary(@RequestParam(name="bits", required=false, defaultValue="8") Integer bits, Model model) {
