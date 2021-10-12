@@ -14,13 +14,13 @@
 <div layout:fragment="content" th:remove="tag">
     <div class="container">
         <style>
-            <!-- random comment -->
-            img {
+            .something {
                 filter: grayscale(100%);
             }
         </style>
         <h1 class="text-center">RGB values within an Image</h1>
             <p><small><a href="/image/grayscale">Grayscale</a></small></p>
+            <button onclick="grayFunction()">Grayscale</button>
             <div class="row justify-content-md-center">
                 <table class="table">
                     <thead>
@@ -37,7 +37,7 @@
                             <div th:text="'(' + ${ii.getHeight()} + ',' + ${ii.getWidth()} + ')'">Height,Width</div>
                         </td>
                         <td>
-                            <img class="img-responsive py-3" th:src="@{${ii.getFile()}}" alt="" src="${ii.getFile()}" width=128 height="Auto">
+                            <img id="test" class="img-responsive py-3" th:src="@{${ii.getFile()}}" alt="" src="${ii.getFile()}" width=128 height="Auto">
                         </td>
                         <td>
                             <div class="overflow-auto" style="height: 256px">
@@ -72,6 +72,13 @@
             </div>
 
     </div>
+
+    <script>
+        var img = document.getElementById('test');
+        function grayFunction() {
+            img.classList.toggle("something");
+        }
+    </script>
 </div>
 </body>
 

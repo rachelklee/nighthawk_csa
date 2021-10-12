@@ -54,7 +54,7 @@ public class MainController {
         String web_server = "https://csa.nighthawkcodingsociety.com";
         List<ImageInfo> lii = new ArrayList<>();
 
-        String file0 = "/images/Mona_Lisa.png";
+        String file0 = "/images/blue-square-16.gif";
         lii.add(new ImageInfo(file0, web_server+file0, 12));
         String str = lii.get(0).grayscale();
         //String str = lii.get(0).grayscale();

@@ -67,7 +67,7 @@ public class ImageInfo {
             byte[] pixels = image_to_pixels(img); // See method definition
             int[] pixels_int = grayscale(pixels);
             String base64 = pixels_to_base64(img.getWidth(), img.getHeight(), pixels_int);
-            return "data:image/jpg;base64,"+base64;
+            return "data:image/gif;base64,"+base64;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +115,7 @@ public class ImageInfo {
      */
     public String pixels_to_base64(int width, int height, int[] pixels) throws IOException {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        for(int y=0;y<height;y++) {
+        for(int y=0; y<height;y++) {
             for(int x=0; x<width; x++) {
                 int a,r,g,b;
                 int s = (y*width + x)*4;
@@ -128,7 +128,7 @@ public class ImageInfo {
         }
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(img, "png", bos);
+        ImageIO.write(img, "gif", bos);
         byte[] data = bos.toByteArray();
         return Base64.encodeBase64String(data);
     }
@@ -231,6 +231,7 @@ public class ImageInfo {
         //System.out.println(Arrays.deepToString(scaled));
         return scaled;
     }
+
 
 
 }
